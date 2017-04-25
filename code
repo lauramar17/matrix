@@ -1,0 +1,17 @@
+import numpy as np
+import os, sys, math
+import nibabel as nib
+import matplotlib.pyplot as plt
+
+img = nib.load('664804/664804_t5_REST.nii.gz')
+MATRIX={}
+data = img.get_data()
+
+
+for bstep in range(0,220,10):
+ data_chunk=eval('data[25:35, 25:35, 25:35, bstep:bstep+10]')
+ agrand=np.reshape(data_chunk,[1000, 10])
+ MATRIX["cormat{0}".format(bstep/10)]=np.corrcoef(agrand)
+
+#calling a cormatrix -> MATRIX["cormat{insert#}"]
+#lenght of the dictionary len(MATRIX)
